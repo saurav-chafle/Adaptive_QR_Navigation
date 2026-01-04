@@ -100,6 +100,60 @@ function dijkstraShortestPath(start, end) {
     return { path, distance: distances[end] };
 }
 
+// Show Location Selection Screen
+function showLocationSelection() {
+    document.getElementById('welcomeScreen').classList.add('hidden');
+    document.getElementById('currentLocationScreen').classList.remove('hidden');
+    renderCurrentLocations();
+}
+
+// Render Current Location List
+function renderCurrentLocations() {
+    const list = document.getElementById('currentLocationList');
+    list.innerHTML = '';
+    
+    const sortedLocations = Object.keys(locations).sort();
+    
+    sortedLocations.forEach(location => {
+        const item = document.createElement('div');
+        item.className = 'destination-item';
+        item.innerHTML = `
+            <h3>${location}</h3>
+            <p>📍 Select as current location</p>
+        `;
+        item.onclick = () => selectCurrentLocation(location);
+        list.appendChild(item);
+    });
+}
+
+// Filter Current Locations
+function filterCurrentLocations() {
+    const searchTerm = document.getElementById('currentSearchBox').value.toLowerCase();
+    const items = document.querySelectorAll('#currentLocationList .destination-item');
+    
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(searchTerm) ? 'block' : 'none';
+    });
+}
+
+// Select Current Location
+function selectCurrentLocation(location) {
+    currentLocation = location;
+    document.getElementById('currentLocationScreen').classList.add('hidden');
+    document.getElementById('destinationScreen').classList.remove('hidden');
+    document.getElementById('selectedCurrentLocation').textContent = currentLocation;
+    renderDestinations();
+}
+
+// Change Current Location
+function changeCurrentLocation() {
+    document.getElementById('destinationScreen').classList.add('hidden');
+    document.getElementById('currentLocationScreen').classList.remove('hidden');
+    document.getElementById('currentSearchBox').value = '';
+    renderCurrentLocations();
+}
+
 // Start Navigation - Simulate QR Scan
 function startNavigation() {
     // Get URL parameters for actual QR code integration
@@ -118,6 +172,7 @@ function startNavigation() {
     // Switch screens
     document.getElementById('welcomeScreen').classList.add('hidden');
     document.getElementById('destinationScreen').classList.remove('hidden');
+    document.getElementById('selectedCurrentLocation').textContent = currentLocation;
     
     // Render destination list
     renderDestinations();
@@ -154,7 +209,7 @@ function renderDestinations() {
 // Filter Destinations based on search
 function filterDestinations() {
     const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-    const items = document.querySelectorAll('.destination-item');
+    const items = document.querySelectorAll('#destinationList .destination-item');
     
     items.forEach(item => {
         const text = item.textContent.toLowerCase();

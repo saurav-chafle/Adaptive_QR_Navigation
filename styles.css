@@ -73,6 +73,28 @@ body {
     color: white;
 }
 
+/* Current Location Badge */
+.current-location-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.current-location-badge span {
+    font-size: 14px;
+}
+
+.current-location-badge strong {
+    font-size: 16px;
+}
+
 /* Buttons */
 .btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -93,6 +115,23 @@ body {
 
 .btn:active {
     transform: translateY(0);
+}
+
+.btn-small {
+    background: white;
+    color: #667eea;
+    border: 2px solid white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btn-small:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
 }
 
 .btn-exit {
@@ -266,6 +305,15 @@ body {
     .info-row {
         flex-direction: column;
         gap: 5px;
+    }
+
+    .current-location-badge {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .current-location-badge .btn-small {
+        align-self: flex-end;
     }
 }
 
