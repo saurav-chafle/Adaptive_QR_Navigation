@@ -136,6 +136,51 @@ function filterCurrentLocations() {
         item.style.display = text.includes(searchTerm) ? 'block' : 'none';
     });
 }
+/* ========= QR CAMERA ADD-ON ========= */
+
+function openCamera() {
+    document.getElementById('welcomeScreen').classList.add('hidden');
+    document.getElementById('cameraScreen').classList.remove('hidden');
+
+    const video = document.getElementById('camera');
+
+    navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }
+    }).then(stream => {
+        video.srcObject = stream;
+    }).catch(err => {
+        alert("Camera permission denied");
+        console.error(err);
+    });
+}
+
+function stopCamera() {
+    const video = document.getElementById('camera');
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+    }
+}
+
+function exitCamera() {
+    stopCamera();
+    document.getElementById('cameraScreen').classList.add('hidden');
+    document.getElementById('welcomeScreen').classList.remove('hidden');
+}
+
+function simulateQRSuccess() {
+    stopCamera();
+
+    // QR scanned location
+    currentLocation = "PCE Main Gate";
+
+    document.getElementById('cameraScreen').classList.add('hidden');
+    document.getElementById('destinationScreen').classList.remove('hidden');
+    document.getElementById('selectedCurrentLocation').textContent = currentLocation;
+
+    renderDestinations(); // OLD FUNCTION (unchanged)
+}
+
 
 // Select Current Location
 function selectCurrentLocation(location) {

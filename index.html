@@ -16,9 +16,18 @@
     <!-- Welcome Screen -->
     <div id="welcomeScreen" class="welcome-screen">
         <h2>Welcome to Smart Campus Navigation</h2>
-        <div class="qr-icon">📱</div>
+        <div class="qr-icon">
+    <img src="QR_Based_Campus_Navigation-1024.jpeg" class="qr-img" alt="QR Code">
+</div>
         <p style="color: #666; margin: 20px 0;">Choose how you want to start navigation</p>
-        <button class="btn" onclick="startNavigation()">Simulate QR Scan</button>
+   <!-- Camera Screen -->
+<div id="cameraScreen" class="welcome-screen hidden">
+    <h2>📷 Scan QR Code</h2>
+    <video id="camera" autoplay playsinline></video>
+    <button class="btn" onclick="simulateQRSuccess()">Simulate QR Detected</button>
+    <button class="btn btn-exit" onclick="exitCamera()">Cancel</button>
+</div>
+
         <button class="btn" onclick="showLocationSelection()">Select Location Manually</button>
     </div>
 
